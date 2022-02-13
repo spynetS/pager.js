@@ -5,11 +5,12 @@ class main{
         this.page = new Page1();
 
     }
-    render(props)
+    render()
     {
         console.log("what")
         var dom = document.getElementById('div');
         this.child = this.page;
+        const props = {name:"alfred"};
         dom.innerHTML = ("<div><h1>"+props.name+"</h1>"+this.page.render(props)+"</div>");
     }
 }
