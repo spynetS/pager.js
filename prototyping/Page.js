@@ -22,6 +22,6 @@ class Page1{
 
     render()
     {
-       return("<div>"+this.child[0].render()+this.child[1].render()+this.child[2].render()+this.child[3].render()+this.child[4].render()+"</div>");
+       return("<div>"+this.child[0].render()+this.child[4].render()+"</div>");
     }
 }
