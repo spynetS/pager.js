@@ -14,7 +14,7 @@ class Inputfield{
     render(){
 
         return(
-"<div><label>test</label><input onkeydown="+this.props.path.update()+" placeholder="+this.props.path.name+"></div>");
+"<div><label>test</label><input onkeydown="+this.props.path&quot;.update()+" placeholder="+this.props.path&quot;.name+"></div>");
     }
 
 }
@@ -36,7 +36,7 @@ class Inputfield{
         console.log(this.props.test);
 
         return "<div><input placeholder="+this.props.test+" ></input></div>"
-"<div><label>test</label><input onkeydown="+this.props.path.update()+" placeholder="+this.props.path.name+"></div>");
+"<div><label>test</label><input onkeydown="+this.props.path&quot;.update()+" placeholder="+this.props.path&quot;.name+"></div>");
     }
 
 }*/

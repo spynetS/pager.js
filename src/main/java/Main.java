@@ -35,16 +35,18 @@ public class Main {
             e.printStackTrace();
         }
     }
-    public static String getParsedAttributes(Element element,int i){
-
-            if(element.attributes().asList().get(i).getValue().contains("{")&&element.attributes().asList().get(i).getValue().contains("}")){
-                String value =  element.attributes().asList().get(i).getValue();
-                value = value.replace("this","this.props.path+'");
-                value = value.replace("{","+");
-                value = value.replace("}","+");
-                return value;
+    public static Element getParsedAttributes(Element element) {
+        Element newEl = element;
+        for (Attribute a : element.attributes()){
+            if (a.getValue().contains("{") && a.getValue().contains("}")) {
+                String value = a.getValue();
+                value = value.replace("this", "this.props.path");
+                value = value.replace("{", "+");
+                value = value.replace("}", "+");
+                newEl.attr(a.getKey(),value);
             }
-        return "";
+        }
+        return newEl;
     }
 
     public static String parseHTML()throws Exception {
@@ -64,8 +66,7 @@ public class Main {
                     children.add(element);
                 }
             }
-
-            elementString=elementString.replace("{","+").replace("}","+");
+            elementString = getParsedAttributes(element).toString();
             elements += elementString;
         }
 
