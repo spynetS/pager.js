@@ -2,7 +2,9 @@
 class main{
     constructor(){
         this.child = null;
-        this.page = new Page1();
+        const props = {path:"app.page",NAME:"alfred"};
+
+        this.page = new Page2(props);
 
     }
     render()
@@ -10,8 +12,9 @@ class main{
         console.log("what")
         var dom = document.getElementById('div');
         this.child = this.page;
-        const props = {name:"alfred"};
-        dom.innerHTML = ("<div><h1>"+props.name+"</h1>"+this.page.render(props)+"</div>");
+        
+        
+        dom.innerHTML = ("<div><h1>"+"knas"+"</h1>"+this.page.render()+"</div>");
     }
 }
 
@@ -21,6 +24,13 @@ console.log(app.child)
 
 
 /*
+return(
+          <div>
+            <h1>{this.props.name}</h1>
+            <Page2  ></Page2>
+          </div>
+        )
+
 <script> 
 class input{
   constructor(){

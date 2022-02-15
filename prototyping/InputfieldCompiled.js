@@ -14,11 +14,7 @@ class Inputfield{
     render(){
 
         return(
-            <div id="main" >
-                <label>test</label>
-                <input onkeydown={this.update()} placeholder={this.name}></input>
-            </div>
-        );
+"<div><label>test</label><input onkeydown="+this.props.path.update()+" placeholder="+this.props.path.name+"></div>");
     }
 
 }
@@ -40,12 +36,7 @@ class Inputfield{
         console.log(this.props.test);
 
         return "<div><input placeholder="+this.props.test+" ></input></div>"
-       /*
-        return(
-            <div>
-                <input placeholder={this.props.name} onchange={this.ee()} ></input>
-            </div>
-        );*
+"<div><label>test</label><input onkeydown="+this.props.path.update()+" placeholder="+this.props.path.name+"></div>");
     }
 
 }*/

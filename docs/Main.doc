@@ -1,0 +1,18 @@
+PAGER2 BRO
+
+Main idea lightweight framework which is easy to learn for normal developer. Similar to react
+Main functions
+Components
+Components are made in classes where you have a render function where you will write your html. This will be compiled to a string with our compiler. This string will later be added to the main component that will append it to a div in the index.html file. 
+
+When adding a component to the html you will add it as a normal html component
+
+
+props
+props are passed as attributes in html
+<ExampleComponent name=”name” ></ExampleComponent>
+
+if we want to pass a js variable we can do it the same way but with curly brackets
+<ExampleComponent name={name} ></ExampleComponent>
+
+This will create in the background
