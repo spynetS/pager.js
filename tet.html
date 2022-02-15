@@ -1,4 +1,35 @@
+class Inputfield{
+    constructor(props){
+        this.props = props;
+        this.name = "";
+        this.but = "";
+    }
+    ee(e){
+        console.log(this.name)
+        this.name += e;
+    }
+    rerender(){
+        console.log("what");
 
-<div>
-    <Button id="but" onclick={this.update()} ></Button>
-</div>
+    }
+    render(){
+        //save every component inside as a seperate string
+        //then when a component data has changed we reload that string
+        console.log("input render")
+        return(
+            <div id="main" >
+                <div>
+                    <label></label>
+                </div>
+                <div>
+                    <div>
+                        <Button onclick="this.update()" ></Button>
+                        <label></label>
+                    </div>
+                </div>
+            </div>
+            );
+    }
+}
+
+

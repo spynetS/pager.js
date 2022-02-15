@@ -11,24 +11,40 @@ public class Main {
 
     public static void main(String[] args){
         try {
-            readHTML();
+            parseHTML("","app.child.child[0]");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void parseHTML(String html, String path){
-
-    }
-
-    public static void readHTML() throws Exception {
+    public static String parseHTML(String html, String path)throws Exception {
         File input = new File("tet.html");
         Document doc = Jsoup.parse(input, "UTF-8", "http://example.com/");
-        Element pag = doc.getElementById("but");
-        pag.attr("onclick","knas");
-        System.out.println(pag);
-
+        Element pag = doc.getElementById("main");
+        //pag.attr("onclick","knas");
+        String p = "";
+        for(Element e : pag.children()){
+            if(e.hasAttr("onclick")) {
+                e.attr("onclick","'+this.props.path+'"+e.attributes().get("onclick").replace("this","")+";'+this.props.path+'.rerender()'+'");
+            }
+            p+=e;
+        }
+        System.out.println("return('"+p.replace("\n","")+"');");
+        return "";
     }
 
+    public static void readHTML() {
+        ArrayList<String> lines = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader("tet.html"))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if(line.contains("<")){
+                }
+                lines.add(line);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
 }
