@@ -1,1 +1,1 @@
-# pager2
+# pager.js
