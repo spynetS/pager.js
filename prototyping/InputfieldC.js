@@ -10,7 +10,7 @@ class Inputfield{
     update(){
         console.log(this.name)
         this.name = "knas";
-        //this.rerender();
+        this.rerender();
         
     }
 

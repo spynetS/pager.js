@@ -21,6 +21,12 @@ public class Main {
     We need to rerender every component that has a binding to a variable
     right now we rerender the whole compnent and this fucks up if you for
     example is writing in a inputfield
+
+    aproch
+    give every component with a binding ({this.variable})
+    a id based on path and then looping though every component
+    and updating them
+
      */
 
     public static String[] keys = new String[]{"onclick","placeholder"};
