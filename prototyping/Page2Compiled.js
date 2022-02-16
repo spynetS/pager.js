@@ -16,7 +16,7 @@ this.children[2] = new Inputfield({"path":"this.props.path.child[2]","test":"ali
     render(){
         
         return(
-"<div><h1>George is gay</h1>"+this.children[0].render()+"<h1>what</h1>"+this.children[1].render()+""+this.children[2].render()+"</div>");
+"<div><h1>knas</h1>"+this.children[0].render()+"<h1>what</h1>"+this.children[1].render()+""+this.children[2].render()+"</div>");
     }
 }
 

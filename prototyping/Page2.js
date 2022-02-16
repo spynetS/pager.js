@@ -14,8 +14,7 @@ class Page2{
         
         return(
             <div id="main" >
-                <h1>George is gay</h1>
-                <Inputfield test="ali" ></Inputfield>
+j                <Inputfield test="ali" ></Inputfield>
                 <h1>what</h1>
                 <Inputfield name="alfred" ></Inputfield>
                 <Inputfield test="ali3" ></Inputfield>

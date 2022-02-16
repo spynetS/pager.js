@@ -14,7 +14,7 @@ class Inputfield{
     render(){
 
         return(
-"<div><label>test</label><input onkeydown="+this.props.path&quot;.update()+" placeholder="+this.props.path&quot;.name+"></div>");
+"<div><label>test</label><input onkeydown="+this.props.path+".update() placeholder="+this.name+"></div>");
     }
 
 }
