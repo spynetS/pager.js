@@ -21,12 +21,16 @@ public class Main {
     public static ArrayList<String> components = new ArrayList<>();
     public static ArrayList<Element> children = new ArrayList<>();
     public static String html = "";
-    //public static String filePath = "prototyping/Page2.js";
-    //public static String compilePath = "prototyping/Page2C.js";
-    public static String filePath = "prototyping/Inputfield.js";
-    public static String compilePath = "prototyping/InputfieldC.js";
+    public static String filePath = "prototyping/Page2.js";
+    public static String compilePath = "prototyping/Page2C.js";
+    //public static String filePath = "prototyping/Inputfield.js";
+    //public static String compilePath = "prototyping/InputfieldC.js";
 
     public static void main(String[] args){
+        if(args.length>0){
+            filePath = args[0];
+            compilePath = args[1];
+        }
         try {
             readFile();
             html = parseHTML();
