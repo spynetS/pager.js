@@ -9,7 +9,8 @@ class Inputfield{
     }
     update(){
         console.log(this.name)
-        this.name = "knas"; 
+        this.name = "knas";
+        this.redrender();
         
     }
 

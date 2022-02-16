@@ -21,10 +21,10 @@ public class Main {
     public static ArrayList<String> components = new ArrayList<>();
     public static ArrayList<Element> children = new ArrayList<>();
     public static String html = "";
-    public static String filePath = "prototyping/Page2.js";
-    public static String compilePath = "prototyping/Page2C.js";
-    //public static String filePath = "prototyping/Inputfield.js";
-    //public static String compilePath = "prototyping/InputfieldC.js";
+    //public static String filePath = "prototyping/Page2.js";
+    //public static String compilePath = "prototyping/Page2C.js";
+    public static String filePath = "prototyping/Inputfield.js";
+    public static String compilePath = "prototyping/InputfieldC.js";
 
     public static void main(String[] args){
         if(args.length>0){
@@ -85,7 +85,7 @@ public class Main {
         }
 
         System.out.println("\"<div>"+ elements+"</div>\"");
-        return "'<div>"+ elements+"</div>'";
+        return "'<div id=\"'+this.props.path+'.id\" >"+ elements+"</div>'";
     }
 
     public static void readFile() {
@@ -126,13 +126,17 @@ public class Main {
         ArrayList<String> lines = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
+
             boolean haschildren = false;
             boolean remove = false;
             while ((line = br.readLine()) != null) {
+
+                if(line.contains("render(){")){
+                    lines.add("rerender(){\n");
+                    lines.add("document.getElementById(this.props.path+\".id\").outerHTML = ("+html+");\n}");
+                }
                 if(!remove&&!line.contains("import"))
                     lines.add(line);
-
-
                 if(line.contains("this.props = props;")){
                     for(int i = 0; i<children.size();i++){
                        // String child = children.get(i);
@@ -144,6 +148,7 @@ public class Main {
                        // lines.add("this.children["+i+"] = new "+ child+"({path:this.props.path+\"child["+i+"]\"})");
                     }
                 }
+
                 if(line.contains("return")){
                     remove = true;
                 }

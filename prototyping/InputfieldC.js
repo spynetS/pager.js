@@ -9,14 +9,19 @@ class Inputfield{
     }
     update(){
         console.log(this.name)
-        this.name = "knas"; 
+        this.name = "knas";
+        //this.rerender();
         
     }
 
+rerender(){
+
+document.getElementById(this.props.path+".id").outerHTML = ('<div id="'+this.props.path+'.id" ><label>'+this.name+'</label><input onkeydown="'+this.props.path+'.update()" placeholder="this.name"></div>');
+}
     render(){
 
         return(
-'<div><label>'+this.name+'</label><input onkeydown="'+this.props.path+'.update()" placeholder="this.name"></div>');
+'<div id="'+this.props.path+'.id" ><label>'+this.name+'</label><input onkeydown="'+this.props.path+'.update()" placeholder="this.name"></div>');
     }
 
 }
