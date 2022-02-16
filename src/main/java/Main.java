@@ -17,6 +17,12 @@ import java.util.Map;
 
 public class Main {
 
+    /*
+    We need to rerender every component that has a binding to a variable
+    right now we rerender the whole compnent and this fucks up if you for
+    example is writing in a inputfield
+     */
+
     public static String[] keys = new String[]{"onclick","placeholder"};
     public static ArrayList<String> components = new ArrayList<>();
     public static ArrayList<Element> children = new ArrayList<>();

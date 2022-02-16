@@ -23,7 +23,7 @@ class Page2{
         
         return(
             <div id="main" >
-j               <Inputfield name="erik" test="ali" ></Inputfield>
+                <Inputfield name="erik" test="ali" ></Inputfield>
                 <h1 id="knass" >{this.props.name}</h1>
                 <Inputfield name="alfred" ></Inputfield>
                 <Inputfield name="Ali" test="ali3" ></Inputfield>
