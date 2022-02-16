@@ -22,9 +22,9 @@ public class Main {
     public static ArrayList<Element> children = new ArrayList<>();
     public static String html = "";
     //public static String filePath = "prototyping/Page2.js";
-    //public static String compilePath = "prototyping/Page2Compiled.js";
+    //public static String compilePath = "prototyping/Page2C.js";
     public static String filePath = "prototyping/Inputfield.js";
-    public static String compilePath = "prototyping/InputfieldCompiled.js";
+    public static String compilePath = "prototyping/InputfieldC.js";
 
     public static void main(String[] args){
         try {
@@ -40,11 +40,17 @@ public class Main {
         for (Attribute a : element.attributes()){
             if (a.getValue().contains("{") && a.getValue().contains("}")) {
                 String value = a.getValue();
-                value = value.replace("this", "this.props.path");
-                value = value.replace("{", "+");
-                value = value.replace("}", "+");
+                if(value.contains("this")&&value.contains("()"))
+                    value = value.replace("this", "'+this.props.path+'");
+                value = value.replace("{", "");
+                value = value.replace("}", "");
                 newEl.attr(a.getKey(),value);
             }
+        }
+        if(element.html().contains("{")&&element.html().contains("}")){
+            String newInner = element.html().replace("{","'+");
+            newInner = newInner.replace("}","+'");
+            newEl.html(newInner);
         }
         return newEl;
     }
@@ -56,22 +62,26 @@ public class Main {
         parser.settings(new ParseSettings(true, true)); // tag, attribute preserve case
         Document doc = parser.parseInput(Files.readAllLines(input.toPath()).toString(), "http://example.com/");
         Element pag = doc.getElementById("main");
+        boolean hasComp = false;
         for(Element element : pag.children()){
             String elementString = element.toString();
             //check for compnents
             for(String comp : components){
                 if(element.tag().getName().equals(comp)){
-
-                    elementString = "\"+this.children["+children.size()+"].render()+\"";
+                    hasComp = true;
+                    elementString = "'+this.children["+children.size()+"].render()+'";
                     children.add(element);
                 }
             }
-            elementString = getParsedAttributes(element).toString();
+            if(!hasComp) {
+                elementString = getParsedAttributes(element).toString();
+            }
+            hasComp=false;
             elements += elementString;
         }
 
         System.out.println("\"<div>"+ elements+"</div>\"");
-        return "\"<div>"+ elements+"</div>\"";
+        return "'<div>"+ elements+"</div>'";
     }
 
     public static void readFile() {
@@ -92,7 +102,7 @@ public class Main {
 
     public static String getChild(Element child,int index) throws JsonProcessingException {
         HashMap<String,String> props = new HashMap<String, String>();
-        props.put("path","this.props.path.child["+index+"]");
+        props.put("path","'+this.props.path+'.children["+index+"]");
 
         for(int i = 0;i<child.attributesSize();i++){
             Attribute attribute = child.attributes().asList().get(i);
@@ -126,7 +136,7 @@ public class Main {
                             lines.add("this.children=[];");
                             haschildren = true;
                         }
-                        lines.add("this.children["+i+"] = "+getChild(children.get(i),i));
+                        lines.add("this.children["+i+"] = "+getChild(children.get(i),i).replace("\"","'"));
                        // lines.add("this.children["+i+"] = new "+ child+"({path:this.props.path+\"child["+i+"]\"})");
                     }
                 }

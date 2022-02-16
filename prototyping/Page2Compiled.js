@@ -6,9 +6,9 @@ class Page2{
     {
         this.props = props;
 this.children=[];
-this.children[0] = new Inputfield({"path":"this.props.path.child[0]","test":"ali"});
-this.children[1] = new Inputfield({"path":"this.props.path.child[1]","test":"ali2"});
-this.children[2] = new Inputfield({"path":"this.props.path.child[2]","test":"ali3"});
+this.children[0] = new Inputfield({"path":this.props.path+".children[0]","test":"ali"});
+this.children[1] = new Inputfield({"path":"this.props.path.children[1]","test":"ali2"});
+this.children[2] = new Inputfield({"path":"this.props.path.children[2]","test":"ali3"});
     }
 
    

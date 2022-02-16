@@ -8,44 +8,19 @@ class Inputfield{
         }
     }
     update(){
-        console.log("asdasd")
+        console.log(this.name)
+        this.name = "knas"; 
+        
     }
 
     render(){
 
         return(
             <div id="main" >
-                <label>test</label>
+                <label >{this.name}</label>
                 <input onkeydown={this.update()} placeholder={this.name}></input>
             </div>
         );
     }
 
 }
-/*
-class Inputfield{
-    constructor(props){
-        this.props = props;
-    }
-    ee(e)
-    {
-        console.log(this.name)
-        this.name += e;
-    }
-    rerender(){
-        console.log(this.props.test);
-        
-    }
-    render(){
-        console.log(this.props.test);
-
-        return "<div><input placeholder="+this.props.test+" ></input></div>"
-       /*
-        return(
-            <div>
-                <input placeholder={this.props.name} onchange={this.ee()} ></input>
-            </div>
-        );*
-    }
-
-}*/

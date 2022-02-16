@@ -14,10 +14,10 @@ class Page2{
         
         return(
             <div id="main" >
-j                <Inputfield test="ali" ></Inputfield>
+j                <Inputfield name="erik" test="ali" ></Inputfield>
                 <h1>what</h1>
                 <Inputfield name="alfred" ></Inputfield>
-                <Inputfield test="ali3" ></Inputfield>
+                <Inputfield name="Ali" test="ali3" ></Inputfield>
             
             </div>
         );

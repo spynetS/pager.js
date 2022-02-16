@@ -8,14 +8,15 @@ class Inputfield{
         }
     }
     update(){
-        console.log("asdasd")
+        console.log(this.name)
+        this.name = "knas";
         
     }
 
     render(){
 
         return(
-"<div><label id=label >test</label><input onkeydown="+this.props.path+".update() placeholder="+this.name+"></div>");
+'<div><label>'+this.name+'</label><input onkeydown="'+this.props.path+'.update()" placeholder="this.name"></div>');
     }
 
 }
