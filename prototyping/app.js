@@ -2,7 +2,7 @@
 class main{
     constructor(){
         this.child = null;
-        const props = {path:"app.page",NAME:"alfred"};
+        const props = {path:"app.page",name:"alfred"};
 
         this.page = new Page2(props);
 

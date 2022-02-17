@@ -20,16 +20,32 @@ import java.util.Map;
 
 public class Main {
 
+    /*
+    We need to rerender every component that has a binding to a variable
+    right now we rerender the whole compnent and this fucks up if you for
+    example is writing in a inputfield
+
+    aproch
+    give every component with a binding ({this.variable})
+    a id based on path and then looping though every component
+    and updating them
+
+     */
+
     public static String[] keys = new String[]{"onclick","placeholder"};
     public static ArrayList<String> components = new ArrayList<>();
     public static ArrayList<Element> children = new ArrayList<>();
     public static String html = "";
     //public static String filePath = "prototyping/Page2.js";
-    //public static String compilePath = "prototyping/Page2Compiled.js";
+    //public static String compilePath = "prototyping/Page2C.js";
     public static String filePath = "prototyping/Inputfield.js";
-    public static String compilePath = "prototyping/InputfieldCompiled.js";
+    public static String compilePath = "prototyping/InputfieldC.js";
 
     public static void main(String[] args){
+        if(args.length>0){
+            filePath = args[0];
+            compilePath = args[1];
+        }
         try {
             readFile();
             html = parseHTML();
@@ -43,11 +59,17 @@ public class Main {
         for (Attribute a : element.attributes()){
             if (a.getValue().contains("{") && a.getValue().contains("}")) {
                 String value = a.getValue();
-                value = value.replace("this", "this.props.path");
-                value = value.replace("{", "+");
-                value = value.replace("}", "+");
+                if(value.contains("this")&&value.contains("()"))
+                    value = value.replace("this", "'+this.props.path+'");
+                value = value.replace("{", "");
+                value = value.replace("}", "");
                 newEl.attr(a.getKey(),value);
             }
+        }
+        if(element.html().contains("{")&&element.html().contains("}")){
+            String newInner = element.html().replace("{","'+");
+            newInner = newInner.replace("}","+'");
+            newEl.html(newInner);
         }
         return newEl;
     }
@@ -59,22 +81,26 @@ public class Main {
         parser.settings(new ParseSettings(true, true)); // tag, attribute preserve case
         Document doc = parser.parseInput(Files.readAllLines(input.toPath()).toString(), "http://example.com/");
         Element pag = doc.getElementById("main");
+        boolean hasComp = false;
         for(Element element : pag.children()){
             String elementString = element.toString();
             //check for compnents
             for(String comp : components){
                 if(element.tag().getName().equals(comp)){
-
-                    elementString = "\"+this.children["+children.size()+"].render()+\"";
+                    hasComp = true;
+                    elementString = "'+this.children["+children.size()+"].render()+'";
                     children.add(element);
                 }
             }
-            elementString = getParsedAttributes(element).toString();
+            if(!hasComp) {
+                elementString = getParsedAttributes(element).toString();
+            }
+            hasComp=false;
             elements += elementString;
         }
 
         System.out.println("\"<div>"+ elements+"</div>\"");
-        return "\"<div>"+ elements+"</div>\"";
+        return "'<div id=\"'+this.props.path+'.id\" >"+ elements+"</div>'";
     }
 
     public static void readFile() {
@@ -95,7 +121,7 @@ public class Main {
 
     public static String getChild(Element child,int index) throws JsonProcessingException {
         HashMap<String,String> props = new HashMap<String, String>();
-        props.put("path","this.props.path.child["+index+"]");
+        props.put("path","'+this.props.path+'.children["+index+"]");
 
         for(int i = 0;i<child.attributesSize();i++){
             Attribute attribute = child.attributes().asList().get(i);
@@ -115,13 +141,17 @@ public class Main {
         ArrayList<String> lines = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
+
             boolean haschildren = false;
             boolean remove = false;
             while ((line = br.readLine()) != null) {
+
+                if(line.contains("render(){")){
+                    lines.add("rerender(){\n");
+                    lines.add("document.getElementById(this.props.path+\".id\").outerHTML = ("+html+");\n}");
+                }
                 if(!remove&&!line.contains("import"))
                     lines.add(line);
-
-
                 if(line.contains("this.props = props;")){
                     for(int i = 0; i<children.size();i++){
                        // String child = children.get(i);
@@ -129,10 +159,11 @@ public class Main {
                             lines.add("this.children=[];");
                             haschildren = true;
                         }
-                        lines.add("this.children["+i+"] = "+getChild(children.get(i),i));
+                        lines.add("this.children["+i+"] = "+getChild(children.get(i),i).replace("\"","'"));
                        // lines.add("this.children["+i+"] = new "+ child+"({path:this.props.path+\"child["+i+"]\"})");
                     }
                 }
+
                 if(line.contains("return")){
                     remove = true;
                 }
