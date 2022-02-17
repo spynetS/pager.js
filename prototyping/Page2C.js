@@ -18,7 +18,7 @@ this.children[2] = new Inputfield({'path':''+this.props.path+'.children[2]','tes
         else{
             this.props.name = "alfred";
         }
-        
+
         this.rerender();
     }
 
@@ -27,7 +27,7 @@ rerender(){
 document.getElementById(this.props.path+".id").outerHTML = ('<div id="'+this.props.path+'.id" >'+this.children[0].render()+'<h1 id="knass">'+this.props.name+'</h1>'+this.children[1].render()+''+this.children[2].render()+'<button onclick="'+this.props.path+'.update()">Change name</button></div>');
 }
     render(){
-        
+
         return(
 '<div id="'+this.props.path+'.id" >'+this.children[0].render()+'<h1 id="knass">'+this.props.name+'</h1>'+this.children[1].render()+''+this.children[2].render()+'<button onclick="'+this.props.path+'.update()">Change name</button></div>');
     }

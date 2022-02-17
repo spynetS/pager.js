@@ -136,8 +136,31 @@ public class Main {
         return "new "+child.tagName()+"("+json+");";
 
     }
+    public static void setChildren() throws Exception {
+        JscriptParser.Parser p = new JscriptParser.Parser(filePath);
+        p.parse();
+        JsClass jsClass = p.currentClass;
 
-    public static void setChildren(){
+        Function rerender = new Function();
+        rerender.setName("rerender");
+        rerender.addBody("document.getElementById(this.props.path+\".id\").outerHTML = ("+html+");\n}");
+        jsClass.addFunction(rerender);
+
+        Function constructor = jsClass.getFunction("constructor");
+        boolean haschildren = false;
+        for(int i = 0; i<children.size();i++){
+            // String child = children.get(i);
+            if(!haschildren) {
+                constructor.addBody("this.children=[];");
+                haschildren = true;
+            }
+            constructor.addBody("this.children["+i+"] = "+getChild(children.get(i),i).replace("\"","'"));
+        }
+        FileWriter myWriter = new FileWriter(compilePath);
+        myWriter.write(jsClass.getJsClass());
+        myWriter.close();
+    }
+    public static void setChildren1(){
         ArrayList<String> lines = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
