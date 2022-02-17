@@ -6,8 +6,11 @@ import com.google.gson.GsonBuilder;
 import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.*;
+import org.jsoup.nodes.Element;
 import org.jsoup.parser.ParseSettings;
 import org.jsoup.parser.Parser;
+
+import JscriptParser.*;
 
 import java.io.*;
 import java.nio.file.Files;
