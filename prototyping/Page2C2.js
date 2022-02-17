@@ -1,19 +1,12 @@
-
-import Inputfield from 'Inputfield'
-
 class Page2{
 
-    constructor(props)
-    {
+    constructor(){	
         this.props = props;
         this.name = "alfred yeo";
+        this.children[0]='what'
     }
-
-   
-
-    render()
-    {
-        
+    
+    render(){	
         return(
             <div id="main" >
                 <Inputfield test="ali" ></Inputfield>
@@ -24,5 +17,9 @@ class Page2{
             </div>
         );
     }
+    rerender()
+    {	
+        document.getElementById('knas').outerHtml = '<div>what</div>'
+    }
+    
 }
-
